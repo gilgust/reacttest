@@ -12,12 +12,12 @@ namespace ReactApp.Repositories
         public IEnumerable<Seminar> Seminars => items ;
         public SeminarMemoryRepository()
         {
-            new List<Seminar>{
+            items = new List<Seminar>{
                 new Seminar { SeminarId = 1, Name = "seminar --1--", Description = "some description 1"},
                 new Seminar { SeminarId = 2, Name = "seminar --2--", Description = "some description 2" },
                 new Seminar { SeminarId = 3, Name = "seminar --3--", Description = "some description 3" },
                 new Seminar { SeminarId = 4, Name = "seminar --4--", Description = "some description 4" }
-            }.ForEach(s => AddSeminar(s));
+            };
         }
 
         public Seminar GetSeminar(int id) => Seminars.FirstOrDefault(s => s.SeminarId == id);

@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router'; 
+import { SeminarList } from './components/SeminarList/indexOld'; 
 
 export default class App extends Component {
-  static displayName = App.name;
+    static displayName = App.name;
 
-  render () {
-    return (
-      <div>
-            <Route exact path='/' />
-            <Route path='/counter' />
-            <Route path='/fetch-data' />
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <SeminarList />
+            </div>
+        );
+    }
 }

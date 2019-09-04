@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ReactApp.Repositories;
 
 namespace ReactApp
 {
@@ -16,6 +17,7 @@ namespace ReactApp
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<ISeminarRepository, SeminarMemoryRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/build" );
         }
@@ -50,8 +52,8 @@ namespace ReactApp
 
                 if (env.IsDevelopment())
                 {
-                    //spa.UseReactDevelopmentServer(npmScript: "start");
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
                 }
             });
         }
