@@ -1,10 +1,5 @@
 ﻿import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
-import "./style.css";
-import CreateSeminar from "./../Seminar/createSeminar";
-import EditSeminar from "./../Seminar/editSeminar";
-import IndexSeminar from "./../Seminar/indexSeminar ";
 
 export class SeminarList extends Component {
     constructor(props) {
@@ -25,28 +20,19 @@ export class SeminarList extends Component {
     }
 
     renderSeminarList(seminars) {
-        return (
-            <Router>
-                <div className="container">
-                    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                        <Link to={"/"} className="navbar-brand" >Reacr CRUD</Link>
-                        <ul>
-                            {seminars.map(seminarInfo =>
-                                <li>
-                                    <link key={seminarInfo.seminarId}>
-                                        <h4>{seminarInfo.name}</h4>
-                                    </link>
-                                </li>
-                            )}
-                        </ul>
-                    </nav>
+        return (<div className="container">
+            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <ul>
                     {seminars.map(seminarInfo =>
-                        <Route path="/{seminarInfo.name}" Component="{Seminar}"/>
-                    )}
-                </div>
-            </Router>
+                        <li key={seminarInfo.seminarId}>
+                            <h4>{seminarInfo.name}</h4>
+                        </li>)
+                    }
+                </ul>
+            </nav>
+        </div>
         );
-            }
+    }
         
     render() {
         const result = this.state.loading
