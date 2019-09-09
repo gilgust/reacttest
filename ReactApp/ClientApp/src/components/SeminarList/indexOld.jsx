@@ -1,4 +1,5 @@
 ﻿import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'; 
 
 
 export class SeminarList extends Component {
@@ -15,34 +16,58 @@ export class SeminarList extends Component {
                 });
                 console.log(data);
             });
-
-        //this.renderSeminarList = this.renderSeminarList.bind(this);
+         
     }
 
-    renderSeminarList(seminars) {
-        return (<div className="container">
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <ul>
-                    {seminars.map(seminarInfo =>
-                        <li key={seminarInfo.seminarId}>
-                            <h4>{seminarInfo.name}</h4>
-                        </li>)
-                    }
-                </ul>
-            </nav>
-        </div>
+    renderSeminarList({ match }) {
+        const seminars = this.state.seminars; 
+
+        return (
+            <div className="container">
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                    <ul>
+                        {seminars.map(seminarInfo =>
+
+                            <li>
+                                <Link to={`${match.url}/${seminarInfo.seminarId}`} key={seminarInfo.seminarId}>
+                                    <h4>{seminarInfo.name}</h4>
+                                    </Link>
+                            </li>
+                        )
+                        }
+                    </ul>
+
+                    <Route path={`${match.path}/:id`} component={seminar} />
+                        {seminars.map(seminarInfo =>
+                            <Route path={`${match.path}/:id`} component={seminar} seminar={seminarInfo} />
+                        )
+                        }
+                        <Route
+                            exact
+                            path={"seminar/"}
+                            render={() => <h3>Please select a topic.</h3>}
+                        />
+                </nav>
+            </div>
         );
     }
-        
+
+
+
+
     render() {
         const result = this.state.loading
             ? <div>loading...</div>
-            : this.renderSeminarList(this.state.seminars);
+            : this.renderSeminarList();
 
         return (
             <div>{result}</div>
         );
     }
 }
-//const SlidesAll = slides.map((slideProp, index) =>
-//    <Slide link={link} {...slideProp} index={index} key={index} current={current} />);
+
+function seminar( seminar ) {
+    return (
+        <h1>{seminar.Name}</h1>  
+    );
+}

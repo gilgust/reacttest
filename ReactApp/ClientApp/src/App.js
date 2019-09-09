@@ -1,60 +1,60 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
-import { SeminarList } from './components/SeminarList/indexOld';
-import { Test1, Test2, Test3 } from './components/testCompopnents';
-var createReactClass = require('create-react-class');
+import { SeminarList } from './components/SeminarList/indexOld'; 
+import React from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-export default class App extends Component { 
-    render() {
-        return (
-            <Router>
-                <Route component={MainLayout}>
-                    <Route component={SearchLayout}>
-                        <Route path="users" component={UserList} />
-                    </Route>
-                </Route>
-            </Router>
-        );
-    }
+function App() {
+    return (
+        <Router>
+            <div>
+                <Header />
+                
+                <Route path="/topics" component={Topics} />
+                <Route path="/seminars" component={SeminarList} />
+            </div>
+        </Router>
+    );
 }
-//<Route path="/" exact component={Index} />
-//<Route path="/home" component={SeminarList} />
-//<Route path="/test1" component={About} />
-//<Route path="/test2" component={Users} />
-var MainLayout = createReactClass({
-    render: function () {
-        return (
-            <div className="app">
-                <header className="primary-header"></header>
-                    <aside className="primary-aside"></aside>
-                <main>{this.props.children}</main>
-            </div>
-        );
-    }
-});
-                
-var SearchLayout = createReactClass({
-    render: function () {
-        return (
-            <div className="search">
-                <header className="search-header"></header>
-                <div className="results">
-                    {this.props.children}
-                </div>
-                <div className="search-footer pagination"></div>
-            </div>
-        );
-    }
-});
-                
-var UserList = createReactClass({
-    render: function () {
-        return (
-            <ul className="user-list">
-                <li>Dan</li>
-                <li>Ryan</li>
-                <li>Michael</li>
-            </ul>
-        );
-    }
-});
+ 
+
+function Topic({ match }) {
+    return <h3>Requested Param: {match.params.id}</h3>;
+}
+
+function Topics({ match }) {
+    return (
+        <div>
+            <h2>Topics</h2>
+
+            <ul>
+                <li>
+                    <Link to={`${match.url}/components`}>Components</Link>
+                </li>
+                <li>
+                    <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
+                </li>
+            </ul>   
+
+            <Route path={`${match.path}/:id`} component={Topic} />
+            <Route
+                exact
+                path={match.path}
+                render={() => <h3>Please select a topic.</h3>}
+            />
+        </div>
+    );
+}
+
+function Header() {
+    return (
+        <ul> 
+            <li>
+                <Link to="/topics">Topics</Link>
+            </li>
+            <li>
+                <Link to="/seminars">seminars</Link>
+            </li>
+        </ul>
+    );
+}
+
+export default App;
