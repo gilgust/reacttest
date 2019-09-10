@@ -14,60 +14,67 @@ export class SeminarList extends Component {
                     loading: false,
                     seminars: data
                 });
-                console.log(data);
+                //console.log(data);
             });
          
     }
 
-    renderSeminarList({ match }) {
-        const seminars = this.state.seminars; 
-
+    renderSeminarList() {
+        const seminars = this.state.seminars;
+        //console.log(this.props.match.url);
+        //<Route path={`seminars/:id`} component={seminar} />
         return (
             <div className="container">
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <ul>
-                        {seminars.map(seminarInfo =>
 
-                            <li>
-                                <Link to={`${match.url}/${seminarInfo.seminarId}`} key={seminarInfo.seminarId}>
-                                    <h4>{seminarInfo.name}</h4>
-                                    </Link>
-                            </li>
-                        )
-                        }
-                    </ul>
-
-                    <Route path={`${match.path}/:id`} component={seminar} />
-                        {seminars.map(seminarInfo =>
-                            <Route path={`${match.path}/:id`} component={seminar} seminar={seminarInfo} />
-                        )
-                        }
-                        <Route
-                            exact
-                            path={"seminar/"}
-                            render={() => <h3>Please select a topic.</h3>}
-                        />
+                    <Switch>
+                    {seminars.map(seminarInfo =>
+                        <Route path={`${this.props.match.url}/:id`} key={seminarInfo.seminarId}
+                            render={(props) => (
+                                <Seminar {...props} />
+                                )} />
+                        )}
+                    <Route path={this.props.match.url} exact
+                        render={() => (
+                            <ul>
+                                {seminars.map(seminarInfo =>
+                                    <li key={seminarInfo.seminarId} >
+                                        <Link to={`${this.props.match.url}/${seminarInfo.seminarId}`}
+                                            key={seminarInfo.seminarId} >
+                                            <h4>{seminarInfo.name}</h4>
+                                        </Link>
+                                    </li>
+                                )}
+                            </ul>
+                        )}/>
+                    </Switch>
                 </nav>
             </div>
         );
     }
 
-
-
-
     render() {
         const result = this.state.loading
             ? <div>loading...</div>
             : this.renderSeminarList();
-
         return (
             <div>{result}</div>
         );
     }
 }
 
-function seminar( seminar ) {
-    return (
-        <h1>{seminar.Name}</h1>  
-    );
+class Seminar extends Component {
+    constructor(props) {
+        super(props)
+        this.state = ({ id: parseInt(props.match.params.id)});
+    }
+
+    render() {
+        const seminarId = this.state.id;
+        console.log(seminarId);
+        return (
+            <h1>{seminarId}</h1>
+        );
+    };
+
 }

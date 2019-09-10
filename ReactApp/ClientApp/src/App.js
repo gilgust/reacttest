@@ -1,15 +1,16 @@
 import { SeminarList } from './components/SeminarList/indexOld'; 
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 function App() {
     return (
         <Router>
             <div>
                 <Header />
-                
-                <Route path="/topics" component={Topics} />
-                <Route path="/seminars" component={SeminarList} />
+                <Switch>
+                    <Route path="/topics" component={Topics} />
+                    <Route path="/seminars" component={SeminarList} />
+                </Switch>
             </div>
         </Router>
     );
