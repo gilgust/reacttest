@@ -1,17 +1,34 @@
-import { SeminarList } from './components/SeminarList/indexOld'; 
-import React from "react";
+import React, { Component } from "react";
+import { combineReducers, createStore } from 'redux';
+import { Provider } from 'react-redux';
+
+import FriendListApp from './containers/FriendListApp';
+import * as reducers from './reducers';
+
+
+
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+
+
+
+import { SeminarList } from './components/SeminarList/indexOld'; 
+
+
+const reducer = combineReducers(reducers);
+const store = createStore(reducer);
 
 function App() {
     return (
         <Router>
-            <div>
-                <Header />
-                <Switch>
-                    <Route path="/topics" component={Topics} />
-                    <Route path="/seminars" component={SeminarList} />
-                </Switch>
-            </div>
+            <Provider store={store}>
+                <div>
+                    <Header />
+                    <Switch>
+                        <Route path="/topics" component={Topics} />
+                        <Route path="/seminars" component={SeminarList} />
+                    </Switch>
+                </div>
+            </Provider>
         </Router>
     );
 }
