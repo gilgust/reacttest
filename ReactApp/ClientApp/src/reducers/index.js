@@ -1,1 +1,1 @@
-﻿
+export { default as seminarList } from './seminars';
