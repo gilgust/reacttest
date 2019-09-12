@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
-import { SeminarList } from './components/SeminarList';
+import { SeminarList } from './components/SeminarList/seminarList';
 //import * as reducers from './reducers';
 //import { combineReducers, createStore } from 'redux';
 //import { Provider } from 'react-redux';

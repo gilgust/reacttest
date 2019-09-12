@@ -46,6 +46,11 @@ namespace ReactApp.Controllers
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id) => repository.DeleteSeminar(id);
+        public StatusCodeResult Delete(int id) {
+            var result = repository.DeleteSeminar(id);
+            if (result)
+                return Ok();
+            return NotFound();
+        }
     }
 }

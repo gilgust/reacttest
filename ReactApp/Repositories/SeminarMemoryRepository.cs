@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using ReactApp.Models;
 
 namespace ReactApp.Repositories
@@ -34,12 +35,13 @@ namespace ReactApp.Repositories
             return seminar;
         }
 
-        public void DeleteSeminar(int id) {
+        public bool DeleteSeminar(int id) {
             var seminar = Seminars.FirstOrDefault(s => s.SeminarId == id);
             if (seminar != null)
             {
-                items.Remove(seminar);
+                return items.Remove(seminar);
             }
+            return false;
         }
 
         public Seminar UpdateSeminar(Seminar seminar) => AddSeminar(seminar);

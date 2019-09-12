@@ -1,4 +1,5 @@
-﻿using ReactApp.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using ReactApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,6 @@ namespace ReactApp.Repositories
         Seminar GetSeminar(int id);
         Seminar AddSeminar(Seminar seminar);
         Seminar UpdateSeminar(Seminar seminar);
-        void DeleteSeminar(int id);
+        bool DeleteSeminar(int id);
     }
 }
