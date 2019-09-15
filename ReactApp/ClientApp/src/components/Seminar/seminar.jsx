@@ -21,7 +21,7 @@ export default class Seminar extends Component {
                 <p>{description}</p>
             </div>
             :
-            <form onSubmit={}>
+            <form >
                 <input type="hidden" name="seminarId" value={seminarId} /> 
                 <input name="name" value={name} />
                 <textarea name="description" value={description} />
