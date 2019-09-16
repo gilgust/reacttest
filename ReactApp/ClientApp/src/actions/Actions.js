@@ -1,29 +1,48 @@
-﻿import *as types from '../constants/ActionTypes';
-
+﻿//import * as types from '../constants/actionTypes';
+import seminarAction from '../constants/actionTypes';
 export function createSeminar(seminar) {
     return {
-        type: types.CREATE_SEMINAR,
+        type: seminarAction.CREATE_SEMINAR,
         seminar: seminar
     };
 }
 
 export function readSeminar(id) {
     return {
-        type: types.READ_SEMINAR,
+        type: seminarAction.READ_SEMINAR,
         id
     };
 }
 
 export function updateSeminar(seminar) {
     return {
-        type: types.UPADATE_SEMINAR,
+        type: seminarAction.UPADATE_SEMINAR,
         seminar: seminar
     };
 }
 
 export function deleteSeminar(id) {
     return {
-        type: types.DELETE_SEMINAR,
+        type: seminarAction.DELETE_SEMINAR,
         id
     };
+}
+
+export function selectSeminar() {
+    return {
+        type: seminarAction.SELECT_SEMINAR
+    };
+}
+
+export function invalidateSeminar() {
+    return {
+        type: seminarAction.INVALIDATE_SEMINAR
+    }
+} 
+
+function receiveSeminar(json) {
+    return {
+        type: seminarAction.RECEIVE_SEMINAR,
+        posts: json.data,
+    }
 }

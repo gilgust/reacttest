@@ -1,24 +1,15 @@
 ﻿import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { createStore } from 'redux';
 import Seminar from "../Seminar/seminar";
+import seminarsApp from "../../reducers/seminarsRedux";
 
+//import * as seminarActions from "./actions/Actions";
+import * as seminarActions from "../../actions/Actions";
+
+const store = createStore(seminarsApp);
 
 export class SeminarList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = ({ loading: true, seminars: [] });
-
-        fetch('api/Seminar/Get')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                this.setState({
-                    loading: false,
-                    seminars: data
-                });
-            });
-        this.editSeminarHandler = this.editSeminarHandler.bind(this);
-    }
 
     editSeminarHandler = (id, editedSeminar) => {
         let statusOk = false;
@@ -104,7 +95,7 @@ export class SeminarList extends Component {
     }
 
     renderSeminarList() {
-        const seminars = this.state.seminars; 
+        const seminars = store.getState("seminars"); 
         const listActions = this;
         return (
             <div className="container">
@@ -148,13 +139,18 @@ export class SeminarList extends Component {
     }
 
     render() {
-        const result = this.state.loading
+        const result = store.getState("loaded")
             ? <div>loading...</div>
             : this.renderSeminarList();
         return (
             <div>{result}</div>
         );
     }
+    //render() {
+    //    return (
+    //        <h1>hi</h1>
+    //    );
+    //}
 }
 
 
