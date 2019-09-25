@@ -1,6 +1,5 @@
 ﻿import { combineReducers } from 'redux';
-import seminarActionConst from '../constants/actionTypes';
-import * as seminarActions from '../actions/Actions';
+import { constants } from '../actions/seminarActions';
 
 const initialState = {
     seminars: [],
@@ -10,48 +9,44 @@ const initialState = {
 
 function seminars(state = initialState, action) {
     switch (action.type) {
-        case seminarActionConst.CREATE_SEMINAR:
+        //case seminarActionConst.CREATE_SEMINAR:
 
-            const newId = state.seminars.length;
-            let seminar = action.seminar;
-            seminar.seminarId = newId;
+        //    const newId = state.seminars.length;
+        //    let seminar = action.seminar;
+        //    seminar.seminarId = newId;
 
-            return {
-                ...state,
-                seminars: state.seminars.concat(seminar)
-            }
+        //    return {
+        //        ...state,
+        //        seminars: state.seminars.concat(seminar)
+        //    } 
 
-        case seminarActionConst.UPADATE_SEMINAR:
-            return {
-                ...state,
-                seminars: state.seminars.map(sem => {
-                    if (sem.seminarId !== action.seminar.seminarId) {
-                        return sem;
-                    }
-                    else {
-                        return action.seminar;
-                    }
-                })
-            }
-
-        case seminarActionConst.DELETE_SEMINAR:
-            return {
-                ...state,
-                seminars: state.seminars.filter(sem => sem.seminarId !== action.id) 
-                };
-            
-        case seminarActionConst.SELECT_SEMINAR:
-            fetch('api/Seminar/Get')
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                     
-                    return {
-                        ...state,
-                        seminars: data,
-                         
-                    };
-                }); 
+        //case seminarActionConst.UPADATE_SEMINAR:
+        //    return {
+        //        ...state,
+        //        seminars: state.seminars.map(sem => {
+        //            if (sem.seminarId !== action.seminar.seminarId) {
+        //                return sem;
+        //            }
+        //            else {
+        //                return action.seminar;
+        //            }
+        //        })
+        //    } 
+        case constants.REQUEST_SEMINAR:
+            return Object.assign({}, state, {
+                isFetching: true,
+                didInvalidate: false
+            });
+        case constants.INVALIDATE_SEMINAR:
+            return Object.assign({}, state, {
+                didInvalidate: true
+            });
+        case constants.RECEIVE_SEMINAR:
+            return Object.assign({}, state, {
+                isFetching: false,
+                didInvalidate: false,
+                seminars: action.seminars
+            });
         default:
             return  state;
     }
@@ -59,11 +54,11 @@ function seminars(state = initialState, action) {
 
 
 
-const seminarsApp = combineReducers({
+const rootReducer = combineReducers({
     seminars
 })
 
-export default seminarsApp;
+export default rootReducer;
 
 
 //export default function seminars(state = initialSeminars, action) {

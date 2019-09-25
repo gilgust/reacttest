@@ -1,10 +1,9 @@
 ﻿import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
  
 
 export default class Seminar extends Component {
  
-
     render() { 
         const { seminarId, name, description } = this.props;        
         const content = 
@@ -18,4 +17,7 @@ export default class Seminar extends Component {
             <div>{content}</div>    
         );
     };
+}
+Seminar.PropTypes = {
+
 }
