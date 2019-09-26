@@ -7,8 +7,25 @@ const initialState = {
     didInvalidate: false,
 }
 
-function seminars(state = initialState, action) {
-    switch (action.type) {
+    function seminars(state = initialState, action) { 
+        switch (action.type) {
+            case constants.REQUEST_SEMINAR: 
+                return Object.assign({}, state, {
+                    isFetching: true,
+                    didInvalidate: false
+                });
+            case constants.INVALIDATE_SEMINAR: 
+                return Object.assign({}, state, {
+                    didInvalidate: true
+                });
+            case constants.RECEIVE_SEMINAR: 
+                return Object.assign({}, state, {
+                    isFetching: false,
+                    didInvalidate: false,
+                    seminars: action.seminars
+                });
+            default:
+                return state;
         //case seminarActionConst.CREATE_SEMINAR:
 
         //    const newId = state.seminars.length;
@@ -32,23 +49,7 @@ function seminars(state = initialState, action) {
         //            }
         //        })
         //    } 
-        case constants.REQUEST_SEMINAR:
-            return Object.assign({}, state, {
-                isFetching: true,
-                didInvalidate: false
-            });
-        case constants.INVALIDATE_SEMINAR:
-            return Object.assign({}, state, {
-                didInvalidate: true
-            });
-        case constants.RECEIVE_SEMINAR:
-            return Object.assign({}, state, {
-                isFetching: false,
-                didInvalidate: false,
-                seminars: action.seminars
-            });
-        default:
-            return  state;
+        
     }
 }
 

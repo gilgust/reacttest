@@ -11,56 +11,57 @@ export const constants = {
     REQUEST_SEMINAR: 'REQUEST_SEMINAR'
 };
 
-export function createSeminar(seminar) {
+export function createSeminar(seminar) { 
     return {
         type: constants.CREATE_SEMINAR,
         seminar: seminar
     };
 }
 
-export function readSeminar(id) {
+export function readSeminar(id) { 
     return {
         type: constants.READ_SEMINAR,
         id
     };
 }
 
-export function updateSeminar(seminar) {
+export function updateSeminar(seminar) { 
     return {
         type: constants.UPADATE_SEMINAR,
         seminar: seminar
     };
 }
 
-export function deleteSeminar(id) {
+export function deleteSeminar(id) { 
     return {
         type: constants.DELETE_SEMINAR,
         id
     };
 }
 
-export function selectSeminar(id) {
+export function selectSeminar(id) { 
     return {
         type: constants.SELECT_SEMINAR,
         id
     };
 }
 
-export function invalidateSeminar(json) {
+export function invalidateSeminar(json) { 
     return {
         type: constants.INVALIDATE_SEMINAR,
         json
     }
 } 
 
-export function receiveSeminar(json) {
+export function receiveSeminars(json) { 
     return {
         type: constants.RECEIVE_SEMINAR,
-        posts: json
+        seminars: json,
+        isFetching: false
     }
 }
 
-export function requestSeminar() {
+export function requestSeminar() { 
     return {
         type: constants.REQUEST_SEMINAR
     }
@@ -70,26 +71,23 @@ export function fetchSeminar() {
     return dispatch => {
         dispatch(requestSeminar());
         return fetch('api/Seminar/Get')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
+            .then(response => { 
+                if (response.status >= 400) {
+                    throw new Error("Bad response from server");
+                }
+                return response.json();
             })
+            .then(json => dispatch(receiveSeminars(json)))
     }
 }
 
-export function shuldFetchSeminar(state) {
+export function shuldFetchSeminar(state) { 
     const seminars = state.seminars;
-    if (!seminars) {
-        return true;
-    } else if (seminars.isFetching) {
-        return false;
-    } else {
-        return seminars.didInvalidate;
-    }
+    return !seminars.isFetching;
 }
 
 export function fetchSeminarsIfNeeded() {
-    return (dispatch, getState) => {
+    return (dispatch, getState) => { 
         if (shuldFetchSeminar(getState())) {
             return dispatch(fetchSeminar());
         }

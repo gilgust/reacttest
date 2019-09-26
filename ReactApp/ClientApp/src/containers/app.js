@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-//import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 import Seminars from '../components/seminarList/seminarList';
-
+import Seminar from '../components/seminar/seminar';
 import {
     //selectSeminar,
     fetchSeminarsIfNeeded,
     //invalidateSeminar
 } from '../actions/seminarActions';
-
+//, Switch
  
 
 class AsyncApp extends Component {
@@ -23,18 +23,19 @@ class AsyncApp extends Component {
     }
 
 
-    render() {
-        const { seminars, isFetching } = this.props;
-        //<Route path="/seminars" component={Seminars} />
-        
+    render() { 
+        const { seminars } = this.props;
         return (
-            <div>
-                {isFetching && seminars.length === 0 && <h2>Loading...</h2>}
-                {!isFetching && seminars.length === 0 && <h2>Empty.</h2>}
-                {seminars.length > 0 && (
-                    <Seminars seminars={seminars} />
-                )}
-            </div>
+            <Router>
+                <div>
+                    <Link to={'/'}>seminars</Link>
+                    <Route path="/" exact render={() => <Seminars />} />
+                    { seminars.length > 0 && (
+                        <Route path={'/seminar/:id'} render={() => <Seminar />} />
+                    )}
+                    
+                </div>
+            </Router>
         );
     }
 }
