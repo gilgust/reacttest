@@ -1,7 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom'
  
 
 class Seminar extends Component {
@@ -32,7 +31,7 @@ Seminar.propTypes = {
 
 function mapStateToProps(state, ownProps) { 
     debugger;
-    const id = ownProps.match.params.id;
+    const id = Number(ownProps.match.params.id);
     const { seminarId, name, description } = state.seminars[id];
     
     return {

@@ -1,4 +1,5 @@
 ﻿import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
 import { constants } from '../actions/seminarActions';
 
 const initialState = {
@@ -56,6 +57,7 @@ const initialState = {
 
 
 const rootReducer = combineReducers({
+    routing: routerReducer,
     seminars
 })
 

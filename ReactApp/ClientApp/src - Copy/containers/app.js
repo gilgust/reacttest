@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route, Link, BrowserRouter as Router } from "react-router-dom";
+import { Router, Route } from "react-router";
+import { Link } from "react-router-dom";
 import Seminars from '../components/seminarList/seminarList';
 import Seminar from '../components/seminar/seminar';
 import {
@@ -9,8 +10,7 @@ import {
     fetchSeminarsIfNeeded,
     //invalidateSeminar
 } from '../actions/seminarActions';
-//, Switch
- 
+
 
 class AsyncApp extends Component {
     //constructor(props) {
@@ -22,20 +22,16 @@ class AsyncApp extends Component {
         dispatch(fetchSeminarsIfNeeded());
     }
 
-
     render() { 
         const { seminars } = this.props;
         return (
-            <Router>
-                <div>
-                    <Link to={'/'}>seminars</Link>
-                    <Route path="/" exact render={() => <Seminars />} />
-                    { seminars.length > 0 && (
-                        <Route path={'/seminar/:id'} render={() => <Seminar />} />
-                    )}
-                    
-                </div>
-            </Router>
+            <div>
+                <Link to={'/'}>seminars</Link>
+                <Route render={() => <Seminars />} />
+                {seminars.length > 0 && (
+                    <Route path={'/seminar/:id'} component={Seminar} />
+                )}
+            </div>
         );
     }
 }
