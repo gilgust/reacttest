@@ -1,6 +1,8 @@
 ﻿import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
+import { connect } from 'react-redux'; 
+import { getTracks } from './actions/tracks';
+import { Link } from 'react-router-dom';
+ 
 class App extends Component {
 
     addTrack() {
@@ -17,7 +19,7 @@ class App extends Component {
     render() {
        
         return (
-            <div>
+            <div> 
                 <div>
                     <input type="text" ref={(input) => { this.trackInput = input }} />
                     <button onClick={this.addTrack.bind(this)}>Add track</button>
@@ -28,9 +30,12 @@ class App extends Component {
                 </div>
                 <ul >
                     {this.props.tracks.map((track, index) =>
-                        <li key={index}>{track.name}</li> )}
+                        <li key={index}>
+                            <Link to={`/tracks/${track.id}`}>{track.name}</Link>
+                        </li>
+                    )}
                 </ul>
-                <button onClick={this.onGetTracks}>Get tracks</button>
+                <button onClick={this.props.onGetTracks}>Get tracks</button>
             </div>
         );
     }
@@ -38,8 +43,9 @@ class App extends Component {
 
 
 export default connect(
-    state => ({
-        tracks: state.tracks.filter(track => track.name.includes(state.filterTracks))
+    (state, ownProps) => ({
+        tracks: state.tracks.filter(track => track.name.includes(state.filterTracks)),
+        ownProps
     }),
     dispatch => ({
         onAddTrack: (name) => {
@@ -53,8 +59,7 @@ export default connect(
             dispatch({ type: 'FIND_TRACK', payload: name })
         },
         onGetTracks: () => {
-
-
+            dispatch(getTracks());
         }
     })
 )(App);

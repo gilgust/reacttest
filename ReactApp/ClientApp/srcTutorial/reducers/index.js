@@ -5,8 +5,8 @@ import playlist from './playlists';
 import filterTracks from './filsterTracks';
 
 
-export default combineReducers({
+export default combineReducers({ 
     tracks,
     playlist,
     filterTracks
-})
+})  
