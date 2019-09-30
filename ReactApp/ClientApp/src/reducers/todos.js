@@ -1,7 +1,7 @@
 ﻿import {
     ADD_TODO,
     TOGGLE_TODO,
-} from '../actions/actions'
+} from '../actions/todoActions'
 
 function todos(state = [], action) {
     switch (action.type) {
@@ -9,6 +9,7 @@ function todos(state = [], action) {
             return [
                 ...state,
                 {
+                    id: Date.now(),
                     text: action.text,
                     completed: false
                 }

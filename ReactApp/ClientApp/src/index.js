@@ -1,13 +1,17 @@
+import 'bootstrap/dist/css/bootstrap.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom'; 
 import * as serviceWorker from './serviceWorker';
-import { createStore } from 'redux'   
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+
 import todoApp from './reducers/reducers'
 import Root from './components/Root'
+ 
 
-// import App from './components/App'
-
-const store = createStore(todoApp)
+const store = createStore(todoApp, composeWithDevTools(applyMiddleware(thunk)))
  
 ReactDOM.render(<Root store={store} />,
    document.getElementById('root'));
