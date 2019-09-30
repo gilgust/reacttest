@@ -31,9 +31,6 @@ class Seminars extends Component {
                         ))}
                     </ul>
                 )}
-                {seminars.length > 0 && (
-                    <Route path={'/seminar/:id'} component={Seminar} />
-                )}
             </div>
         )
     }
