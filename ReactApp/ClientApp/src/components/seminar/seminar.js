@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
-import { fetchSeminarsIfNeeded } from '../actions/seminarActions';
-import Menu from './Menu';
+import { fetchSeminarsIfNeeded } from '../../actions/seminarActions';
+import Menu from '../Menu';
  
 
 class Seminar extends Component {
@@ -20,7 +20,7 @@ class Seminar extends Component {
 
     render() { 
         const { seminarId, name, description, isFetching } = this.props;
-
+        const id = this.props.match.params.id;
 
         return (
             <div>
@@ -30,7 +30,7 @@ class Seminar extends Component {
                     <div>
                         {seminarId && (
                             <div>
-                                <Link to={`/seminar/edit/${seminarId}`} className="m-1 btn btn-primary">edit</Link>
+                                <Link to={`/seminar/edit/${id}`} className="m-1 btn btn-primary">edit</Link>
                                 <button className="m-1 btn btn-danger">delete</button>
                                 <h4>id: {seminarId}</h4>
                             </div>
