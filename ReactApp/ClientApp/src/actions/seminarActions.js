@@ -77,7 +77,10 @@ export function fetchSeminar() {
                 }
                 return response.json();
             })
-            .then(json => dispatch(receiveSeminars(json)))
+            .then(json => {
+                console.log(json);
+                dispatch(receiveSeminars(json));
+            })
     }
 }
 

@@ -1,11 +1,11 @@
 ﻿import React, { Component } from 'react';
-import { Route, Link, Switch, withRouter } from "react-router-dom";
+import { Link,  } from "react-router-dom";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { fetchSeminarsIfNeeded } from '../actions/seminarActions';
 import Menu from './Menu';
-import Seminar from './seminar/seminar';
+//import Seminar from './seminar/seminar';
 
 
 class Seminars extends Component {

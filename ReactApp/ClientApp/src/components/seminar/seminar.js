@@ -8,10 +8,7 @@ import Menu from '../Menu';
  
 
 class Seminar extends Component {
-    constructor(props) {
-        super(props);
-        
-    }
+ 
 
     componentDidMount() {
         const { dispatch } = this.props;

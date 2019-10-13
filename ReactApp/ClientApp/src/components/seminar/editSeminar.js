@@ -1,7 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
+import PropTypes from 'prop-types'; 
 
 import { fetchSeminarsIfNeeded } from '../../actions/seminarActions';
 import Menu from '../Menu';
@@ -18,21 +17,15 @@ class editSeminar extends Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
-        //this.handleSubmit = this.handleSubmit.bind(this);
-
-        console.log('props ctor ', props);
-        console.log('state', this.state);
     }
 
     componentDidMount() {
-        console.log('props DidMount ', this.props);
-        debugger;
         const { dispatch } = this.props;
         dispatch(fetchSeminarsIfNeeded());
     }
 
     handleChange(event) {
-        const target = event.target; 
+        const target = event.target;
         this.setState({ [target.name]: target.value });
     }
 
@@ -69,7 +62,7 @@ class editSeminar extends Component {
                                 <label htmlFor="description">Description</label>
                                 <textarea
                                     className="form-control" 
-                                    name="description"
+                                    name="newDescription"
                                     onChange={this.handleChange}
                                     value={newDescription}
                                     rows="4" />
@@ -98,24 +91,13 @@ function mapStateToProps(state, ownProps) {
         return { ...seminar, isFetching, didInvalidate  };
     } else {
         return {
-            seminarId : null,
+            seminarId : -1,
             name : '',
             description: '',
             isFetching,
             didInvalidate 
         }
     }
-}
-function mapActions(dispatch) {
-    //onFindTrack: (name) => {
-    //    dispatch({ type: 'FIND_TRACK', payload: name })
-    //},
-    return ({
-        handleSubmit: ( event ) => {
-            //dispatch(getTracks());
-            console.log( event );
-        }
-    });
-}
+} 
 
 export default connect(mapStateToProps)(editSeminar);
